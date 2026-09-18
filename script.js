@@ -184,7 +184,8 @@ function showTraineeDash(user) {
     // Certificate
     document.getElementById('cert-name').textContent = user.name;
     document.getElementById('cert-id').textContent = 'KJ-2026-' + String(Math.floor(Math.random()*9000)+1000);
-    window.scrollTo(0,0);
+    // Scroll to dashboard section
+    setTimeout(() => { const ds = document.getElementById('dashSection'); if(ds) ds.scrollIntoView({behavior:'smooth', block:'start'}); }, 100);
 }
 
 // ── SHOW MENTOR DASHBOARD ──
@@ -216,7 +217,8 @@ function showMentorDash() {
 
     // Render course cards
     renderMentorCourses();
-    window.scrollTo(0,0);
+    // Scroll to dashboard section
+    setTimeout(() => { const ds = document.getElementById('dashSection'); if(ds) ds.scrollIntoView({behavior:'smooth', block:'start'}); }, 100);
 }
 
 // ── RENDER TRAINEES TABLE ──
