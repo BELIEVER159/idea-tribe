@@ -168,6 +168,11 @@ function showTraineeDash(user) {
     // Hide hero section since dashboard replaces it
     const hero = document.getElementById('hero');
     if (hero) hero.style.display = 'none';
+    // Show Dashboard nav link, hide Home
+    const dashLink = document.getElementById('navDashLink');
+    if (dashLink) dashLink.style.display = '';
+    const homeLink = document.getElementById('navHome');
+    if (homeLink) homeLink.style.display = 'none';
 
     // Update profile
     document.getElementById('t-profile-name').textContent = user.name;
@@ -200,6 +205,11 @@ function showMentorDash() {
     // Hide hero section since dashboard replaces it
     const hero = document.getElementById('hero');
     if (hero) hero.style.display = 'none';
+    // Show Dashboard nav link, hide Home
+    const dashLink = document.getElementById('navDashLink');
+    if (dashLink) dashLink.style.display = '';
+    const homeLink = document.getElementById('navHome');
+    if (homeLink) homeLink.style.display = 'none';
 
     // Render trainees table
     renderTraineesTable(TRAINEES);
@@ -335,6 +345,11 @@ function signOut() {
     // Restore hero section
     const hero = document.getElementById('hero');
     if (hero) hero.style.display = '';
+    // Hide Dashboard nav link, show Home
+    const dashLink = document.getElementById('navDashLink');
+    if (dashLink) dashLink.style.display = 'none';
+    const homeLink = document.getElementById('navHome');
+    if (homeLink) homeLink.style.display = '';
     window.scrollTo(0,0);
 }
 
