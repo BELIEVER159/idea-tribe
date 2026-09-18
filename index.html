@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaushal Jharkhand — Tribal Youth Skill Development Portal</title>
+    <meta name="description" content="Browse vocational courses, government schemes, training videos & apply for skill training for tribal youth in Jharkhand.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+</head>
+<body>
+
+<!-- ═══════ SIGN-IN MODAL ═══════ -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>🎓 Sign In</h2>
+            <div class="modal-close" id="modalClose">✕</div>
+        </div>
+        <div class="modal-tabs">
+            <div class="modal-tab active" data-tab="trainee">🎓 Trainee</div>
+            <div class="modal-tab" data-tab="mentor">👨‍🏫 Mentor</div>
+        </div>
+        <div class="modal-body">
+            <div class="modal-form active" id="form-trainee">
+                <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" id="login-t-name" placeholder="Enter your name"></div>
+                <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" id="login-t-phone" placeholder="10-digit mobile number"></div>
+                <button class="btn btn-p btn-full" onclick="loginTrainee()">Sign In as Trainee →</button>
+                <div class="modal-note">Demo: Enter any name & phone to sign in</div>
+            </div>
+            <div class="modal-form" id="form-mentor">
+                <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="login-m-email" placeholder="mentor@kaushal.in"></div>
+                <div class="form-group"><label class="form-label">Password</label><input type="password" class="form-input" id="login-m-pass" placeholder="Enter password"></div>
+                <button class="btn btn-p btn-full" onclick="loginMentor()">Sign In as Mentor →</button>
+                <div class="modal-note">Demo: mentor@kaushal.in / mentor123</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════ NAVIGATION ═══════ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-c">
+        <a href="#hero" class="nav-logo" onclick="goHome()"><div class="nav-logo-i">🎓</div><span>Kaushal Jharkhand</span></a>
+        <div class="nav-links" id="navLinks">
+            <a href="#hero" class="active">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#videos">Videos</a>
+            <a href="#schemes">Schemes</a>
+            <a href="#schedule">Schedule</a>
+            <a href="#internships">Internships</a>
+            <a href="#benefits">Benefits</a>
+            <a href="#apply" class="nav-cta">Apply Now</a>
+        </div>
+        <!-- Sign-in / Profile -->
+        <button class="nav-signin" id="navSignin" onclick="openLogin()">👤 Sign In</button>
+        <div class="nav-profile" id="navProfile" onclick="toggleProfileMenu()">
+            <div class="nav-avatar-sm" id="navAvatarSm">YT</div>
+            <div><div class="nav-profile-name" id="navProfName">User</div><div class="nav-profile-role" id="navProfRole">Trainee</div></div>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<!-- ═══════ PUBLIC WEBSITE ═══════ -->
+<div id="publicSite">
+
+<!-- HERO -->
+<section id="hero" class="section">
+    <div class="hero-pattern"></div><div class="hero-shape s1"></div><div class="hero-shape s2"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge"><span class="pulse"></span>Tribal Youth Skill Development Portal — Jharkhand</div>
+            <h1 class="hero-title"><span class="hl">Learn Skills.</span><br>Get Certified.<br>Build Your Future.</h1>
+            <p class="hero-sub">Browse free vocational courses, watch training videos, explore government schemes, and apply for skill training — all in one place for tribal youth of Jharkhand.</p>
+            <div class="hero-actions"><a href="#courses" class="btn btn-p">Browse Courses 📚</a><a href="#apply" class="btn btn-o">Apply Now →</a></div>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="v" style="color:var(--blue)">12</div><div class="l">Courses</div></div>
+            <div class="hero-stat"><div class="v" style="color:var(--green)">8</div><div class="l">Active Batches</div></div>
+            <div class="hero-stat"><div class="v" style="color:var(--purple)">6</div><div class="l">Govt Schemes</div></div>
+            <div class="hero-stat"><div class="v" style="color:var(--orange)">5</div><div class="l">Internships</div></div>
+            <div class="hero-stat"><div class="v" style="color:var(--teal)">100%</div><div class="l">Free Training</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses" class="section section-alt">
+    <div class="container">
+        <div class="section-badge" style="background:var(--blue-l);color:var(--blue);border:1px solid #bfdbfe">📚 Training Programmes</div>
+        <h2 class="section-title reveal">Vocational <span style="color:var(--blue)">Courses</span></h2>
+        <p class="section-sub reveal">Browse certified vocational training across Electrical, Mechanical & Civil trades.</p>
+        <div class="filter-bar reveal"><button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="electrical">⚡ Electrical</button><button class="filter-btn" data-filter="mechanical">⚙️ Mechanical</button><button class="filter-btn" data-filter="civil">🏗️ Civil</button></div>
+        <div class="grid-3 reveal" id="coursesGrid">
+            <div class="course-card" data-cat="electrical"><div class="course-banner" style="background:linear-gradient(90deg,var(--orange),#f59e0b)"></div><div class="course-body"><span class="course-cat" style="background:var(--orange-l);color:var(--orange)">⚡ Electrical</span><h3>Solar Panel Installation</h3><p>Install, maintain & repair solar panels for homes & street lights.</p><div class="course-meta"><span>📅 3 Months</span><span>📍 Dumka, Gumla</span><span>🎓 NSQF Level 4</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under PMKVY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="electrical"><div class="course-banner" style="background:linear-gradient(90deg,var(--orange),#f59e0b)"></div><div class="course-body"><span class="course-cat" style="background:var(--orange-l);color:var(--orange)">⚡ Electrical</span><h3>House Wiring & Electrician</h3><p>Domestic wiring, switchboard, MCB installation & fault repair.</p><div class="course-meta"><span>📅 6 Months</span><span>📍 Giridih, Khunti</span><span>🎓 NSQF Level 3</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under DDU-GKY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="electrical"><div class="course-banner" style="background:linear-gradient(90deg,var(--orange),#f59e0b)"></div><div class="course-body"><span class="course-cat" style="background:var(--orange-l);color:var(--orange)">⚡ Electrical</span><h3>EV Battery & Charger Tech</h3><p>EV battery servicing, charger installation & maintenance.</p><div class="course-meta"><span>📅 4 Months</span><span>📍 Dhanbad</span><span>🎓 NSQF Level 4</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under PMKVY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="mechanical"><div class="course-banner" style="background:linear-gradient(90deg,var(--blue),#3b82f6)"></div><div class="course-body"><span class="course-cat" style="background:var(--blue-l);color:var(--blue)">⚙️ Mechanical</span><h3>Two-Wheeler Mechanic</h3><p>Bike & scooter repair — engine, electrical, suspension.</p><div class="course-meta"><span>📅 3 Months</span><span>📍 Giridih, Gumla</span><span>🎓 NSQF Level 3</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under DDU-GKY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="mechanical"><div class="course-banner" style="background:linear-gradient(90deg,var(--blue),#3b82f6)"></div><div class="course-body"><span class="course-cat" style="background:var(--blue-l);color:var(--blue)">⚙️ Mechanical</span><h3>Welding & Fabrication</h3><p>Arc welding, gas welding, cutting & metal fabrication.</p><div class="course-meta"><span>📅 4 Months</span><span>📍 Khunti, Dumka</span><span>🎓 NSQF Level 4</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under PMKVY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="mechanical"><div class="course-banner" style="background:linear-gradient(90deg,var(--blue),#3b82f6)"></div><div class="course-body"><span class="course-cat" style="background:var(--blue-l);color:var(--blue)">⚙️ Mechanical</span><h3>Agri-Equipment Repair</h3><p>Tractor, pump, thresher servicing for agriculture.</p><div class="course-meta"><span>📅 3 Months</span><span>📍 Dumka</span><span>🎓 Certificate</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under PMKVY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="civil"><div class="course-banner" style="background:linear-gradient(90deg,var(--green),#22c55e)"></div><div class="course-body"><span class="course-cat" style="background:var(--green-l);color:var(--green)">🏗️ Civil</span><h3>Plumbing & Sanitation</h3><p>Pipe fitting, water supply & sanitation for villages.</p><div class="course-meta"><span>📅 2 Months</span><span>📍 Khunti, Gumla</span><span>🎓 NSQF Level 3</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under PMKVY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="civil"><div class="course-banner" style="background:linear-gradient(90deg,var(--green),#22c55e)"></div><div class="course-body"><span class="course-cat" style="background:var(--green-l);color:var(--green)">🏗️ Civil</span><h3>Masonry & Construction</h3><p>Brick laying, plastering & eco-housing construction.</p><div class="course-meta"><span>📅 3 Months</span><span>📍 W.Singhbhum</span><span>🎓 Certificate</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under DDU-GKY</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+            <div class="course-card" data-cat="civil"><div class="course-banner" style="background:linear-gradient(90deg,var(--green),#22c55e)"></div><div class="course-body"><span class="course-cat" style="background:var(--green-l);color:var(--green)">🏗️ Civil</span><h3>Rainwater Harvesting</h3><p>Rooftop harvesting systems & recharge pits.</p><div class="course-meta"><span>📅 1 Month</span><span>📍 Gumla</span><span>🎓 Certificate</span></div><span class="course-fee" style="background:var(--green-l);color:var(--green)">FREE under MGNREGA</span><div class="course-actions"><a href="#apply" class="btn btn-p btn-sm">Apply</a></div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos" class="section">
+    <div class="container">
+        <div class="section-badge" style="background:var(--purple-l);color:var(--purple);border:1px solid #ddd6fe">🎥 Learn & Watch</div>
+        <h2 class="section-title reveal">Training <span style="color:var(--purple)">Videos</span></h2>
+        <p class="section-sub reveal">Practical demos, safety training, government scheme guides & career advice.</p>
+        <div class="grid-3 reveal">
+            <div class="video-card"><div class="video-thumb" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><div class="video-play">▶</div><span class="video-dur">12:30</span></div><div class="video-body"><span class="course-cat" style="background:var(--orange-l);color:var(--orange)">⚡ Practical</span><h3>How to Install Solar Panels</h3><div class="vc-sub">Mounting, wiring & inverter setup</div></div></div>
+            <div class="video-card"><div class="video-thumb" style="background:linear-gradient(135deg,#fee2e2,#fecaca)"><div class="video-play">▶</div><span class="video-dur">8:45</span></div><div class="video-body"><span class="course-cat" style="background:var(--red-l);color:var(--red)">🛡️ Safety</span><h3>Electrical Safety Rules</h3><div class="vc-sub">Must watch before training</div></div></div>
+            <div class="video-card"><div class="video-thumb" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><div class="video-play">▶</div><span class="video-dur">15:20</span></div><div class="video-body"><span class="course-cat" style="background:var(--purple-l);color:var(--purple)">🏛️ Govt</span><h3>What is PMKVY? Complete Guide</h3><div class="vc-sub">How to apply, eligibility & benefits</div></div></div>
+            <div class="video-card"><div class="video-thumb" style="background:linear-gradient(135deg,#eff6ff,#bfdbfe)"><div class="video-play">▶</div><span class="video-dur">18:10</span></div><div class="video-body"><span class="course-cat" style="background:var(--blue-l);color:var(--blue)">⚙️ Practical</span><h3>Welding Basics for Beginners</h3><div class="vc-sub">Joints, electrodes & first weld</div></div></div>
+            <div class="video-card"><div class="video-thumb" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0)"><div class="video-play">▶</div><span class="video-dur">11:00</span></div><div class="video-body"><span class="course-cat" style="background:var(--green-l);color:var(--green)">🏛️ Govt</span><h3>DDU-GKY — Free Training + Job</h3><div class="vc-sub">Full guide for rural youth</div></div></div>
+            <div class="video-card"><div class="video-thumb" style="background:linear-gradient(135deg,#e0f7f4,#99f6e4)"><div class="video-play">▶</div><span class="video-dur">14:00</span></div><div class="video-body"><span class="course-cat" style="background:var(--teal-l);color:var(--teal)">💼 Career</span><h3>Start Your Own Solar Business</h3><div class="vc-sub">Entrepreneur guide with ₹50K</div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SCHEMES -->
+<section id="schemes" class="section section-alt">
+    <div class="container">
+        <div class="section-badge" style="background:var(--green-l);color:var(--green);border:1px solid #bbf7d0">🏛️ Government Support</div>
+        <h2 class="section-title reveal">Government <span style="color:var(--green)">Schemes</span></h2>
+        <p class="section-sub reveal">Programmes that fund your training, certify you, and place you in jobs.</p>
+        <div class="grid-2 reveal">
+            <div class="scheme-card"><div class="scheme-icon" style="background:var(--blue-l)">🎯</div><div><h3>PMKVY</h3><div class="sf">Pradhan Mantri Kaushal Vikas Yojana</div><p>Free training + NSQF certificate + ₹8,000 reward on completion.</p><div class="scheme-tags"><span>✅ Free</span><span>✅ ₹8K Reward</span><span>✅ Certificate</span></div><a class="scheme-link" href="https://www.pmkvyofficial.org" target="_blank">🔗 pmkvyofficial.org →</a></div></div>
+            <div class="scheme-card"><div class="scheme-icon" style="background:var(--green-l)">🌾</div><div><h3>DDU-GKY</h3><div class="sf">Grameen Kaushalya Yojana</div><p>Free training + hostel + food + guaranteed job ₹6,000+/month.</p><div class="scheme-tags"><span>✅ Free Everything</span><span>✅ Job Guarantee</span></div><a class="scheme-link" href="https://ddugky.gov.in" target="_blank">🔗 ddugky.gov.in →</a></div></div>
+            <div class="scheme-card"><div class="scheme-icon" style="background:var(--orange-l)">🏭</div><div><h3>NAPS</h3><div class="sf">National Apprenticeship Promotion Scheme</div><p>Earn ₹5K–9K/month while training at real companies.</p><div class="scheme-tags"><span>✅ Earn While Learn</span><span>✅ ₹5K–9K Stipend</span></div><a class="scheme-link" href="https://www.apprenticeshipindia.gov.in" target="_blank">🔗 apprenticeshipindia.gov.in →</a></div></div>
+            <div class="scheme-card"><div class="scheme-icon" style="background:var(--purple-l)">💰</div><div><h3>MUDRA Yojana</h3><div class="sf">Business Loans up to ₹10 Lakh</div><p>No-collateral loans for starting micro-enterprises. SC/ST priority.</p><div class="scheme-tags"><span>✅ No Collateral</span><span>✅ Up to ₹10L</span></div><a class="scheme-link" href="https://www.mudra.org.in" target="_blank">🔗 mudra.org.in →</a></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule" class="section">
+    <div class="container">
+        <div class="section-badge" style="background:var(--orange-l);color:var(--orange);border:1px solid #fde68a">📅 Upcoming Batches</div>
+        <h2 class="section-title reveal">Schedule & <span style="color:var(--orange)">Timing</span></h2>
+        <p class="section-sub reveal">Check upcoming batches, timings, and available seats.</p>
+        <div class="filter-bar reveal"><button class="filter-btn active" data-sfilter="all">All</button><button class="filter-btn" data-sfilter="dumka">📍 Dumka</button><button class="filter-btn" data-sfilter="giridih">📍 Giridih</button><button class="filter-btn" data-sfilter="khunti">📍 Khunti</button><button class="filter-btn" data-sfilter="gumla">📍 Gumla</button></div>
+        <div class="reveal"><table class="sched-table"><thead><tr><th>Course</th><th>Start Date</th><th>Duration</th><th>Centre</th><th>Timing</th><th>Seats</th><th>Status</th></tr></thead><tbody id="schedBody">
+            <tr data-centre="dumka"><td><strong>Solar Panel Installation</strong></td><td>15 Oct 2026</td><td>3 Months</td><td>📍 Dumka</td><td>9–1 PM</td><td>30</td><td><span class="status st-open">Open</span></td></tr>
+            <tr data-centre="giridih"><td><strong>House Wiring</strong></td><td>20 Oct 2026</td><td>6 Months</td><td>📍 Giridih</td><td>10–2 PM</td><td>25</td><td><span class="status st-fill">Filling</span></td></tr>
+            <tr data-centre="khunti"><td><strong>Welding & Fabrication</strong></td><td>1 Nov 2026</td><td>4 Months</td><td>📍 Khunti</td><td>9–1 PM</td><td>20</td><td><span class="status st-open">Open</span></td></tr>
+            <tr data-centre="gumla"><td><strong>Plumbing</strong></td><td>5 Nov 2026</td><td>2 Months</td><td>📍 Gumla</td><td>9:30–12:30</td><td>25</td><td><span class="status st-open">Open</span></td></tr>
+            <tr data-centre="giridih"><td><strong>Two-Wheeler Mechanic</strong></td><td>10 Nov 2026</td><td>3 Months</td><td>📍 Giridih</td><td>10–2 PM</td><td>20</td><td><span class="status st-open">Open</span></td></tr>
+        </tbody></table></div>
+    </div>
+</section>
+
+<!-- INTERNSHIPS -->
+<section id="internships" class="section section-alt">
+    <div class="container">
+        <div class="section-badge" style="background:var(--teal-l);color:var(--teal);border:1px solid #99f6e4">💼 Opportunities</div>
+        <h2 class="section-title reveal">Internships & <span style="color:var(--teal)">Apprenticeships</span></h2>
+        <p class="section-sub reveal">Paid internships with leading companies after training.</p>
+        <div class="grid-2 reveal">
+            <div class="intern-card"><div class="intern-head"><div class="intern-logo" style="background:var(--blue-l);color:var(--blue)">TS</div><div><h3>Electrician Apprentice</h3><div class="ic-co">Tata Steel — Jamshedpur</div></div></div><div class="ic-desc">Electrical maintenance training at Tata Steel plant.</div><div class="intern-tags"><span>📅 6 Months</span><span>📍 Jamshedpur</span><span>🏛️ NAPS</span></div><div class="intern-stipend">💰 ₹9,000/month</div><a href="#apply" class="btn btn-p btn-sm">Apply</a></div>
+            <div class="intern-card"><div class="intern-head"><div class="intern-logo" style="background:var(--green-l);color:var(--green)">SA</div><div><h3>Welder Trainee</h3><div class="ic-co">SAIL — Bokaro Steel Plant</div></div></div><div class="ic-desc">MIG, TIG, Arc welding in steel workshops.</div><div class="intern-tags"><span>📅 12 Months</span><span>📍 Bokaro</span><span>🏛️ NAPS</span></div><div class="intern-stipend">💰 ₹8,000/month</div><a href="#apply" class="btn btn-p btn-sm">Apply</a></div>
+            <div class="intern-card"><div class="intern-head"><div class="intern-logo" style="background:var(--orange-l);color:var(--orange)">CI</div><div><h3>Heavy Equipment Trainee</h3><div class="ic-co">Coal India — CCL Ranchi</div></div></div><div class="ic-desc">Operate & maintain heavy machinery.</div><div class="intern-tags"><span>📅 6 Months</span><span>📍 Ranchi</span><span>🏛️ CSR</span></div><div class="intern-stipend">💰 ₹7,500/month</div><a href="#apply" class="btn btn-p btn-sm">Apply</a></div>
+            <div class="intern-card"><div class="intern-head"><div class="intern-logo" style="background:var(--purple-l);color:var(--purple)">SE</div><div><h3>Solar Installation Intern</h3><div class="ic-co">SunSource Energy</div></div></div><div class="ic-desc">Rooftop solar across rural Jharkhand.</div><div class="intern-tags"><span>📅 3 Months</span><span>📍 Multiple</span><span>🏛️ CSR</span></div><div class="intern-stipend">💰 ₹6,000/month</div><a href="#apply" class="btn btn-p btn-sm">Apply</a></div>
+        </div>
+    </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits" class="section">
+    <div class="container">
+        <div style="text-align:center"><div class="section-badge" style="background:var(--orange-l);color:var(--orange);border:1px solid #fde68a">🎁 What You Get</div>
+        <h2 class="section-title reveal" style="text-align:center">Benefits & <span style="color:var(--orange)">Welfare</span></h2>
+        <p class="section-sub cen reveal">All benefits available to tribal youth through government schemes.</p></div>
+        <div class="grid-3 reveal">
+            <div class="benefit-card"><div class="bi">💰</div><h3>100% Free Training</h3><p>PMKVY & DDU-GKY courses are free.</p><a class="bp" href="https://www.pmkvyofficial.org" target="_blank">🔗 PMKVY →</a></div>
+            <div class="benefit-card"><div class="bi">🎓</div><h3>Govt Certificate</h3><p>NSQF-certified, recognized India-wide.</p><a class="bp" href="https://www.nsdcindia.org" target="_blank">🔗 NSDC →</a></div>
+            <div class="benefit-card"><div class="bi">🏠</div><h3>Free Hostel & Food</h3><p>DDU-GKY provides accommodation.</p><a class="bp" href="https://ddugky.gov.in" target="_blank">🔗 DDU-GKY →</a></div>
+            <div class="benefit-card"><div class="bi">🛠️</div><h3>Free Tool Kit</h3><p>₹5K–₹15K starter kit on completion.</p></div>
+            <div class="benefit-card"><div class="bi">💼</div><h3>Job Placement</h3><p>Guaranteed ₹6K+/month via DDU-GKY.</p></div>
+            <div class="benefit-card"><div class="bi">💵</div><h3>₹8,000 Cash Reward</h3><p>PMKVY reward after completion.</p></div>
+            <div class="benefit-card"><div class="bi">🏦</div><h3>MUDRA Loan</h3><p>Up to ₹10L for your business.</p><a class="bp" href="https://www.mudra.org.in" target="_blank">🔗 MUDRA →</a></div>
+            <div class="benefit-card"><div class="bi">📋</div><h3>Scholarships</h3><p>SC/ST pre & post-matric scholarships.</p><a class="bp" href="https://scholarships.gov.in" target="_blank">🔗 Portal →</a></div>
+            <div class="benefit-card"><div class="bi">🩺</div><h3>₹2L Insurance</h3><p>Accident cover during PMKVY training.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- APPLY -->
+<section id="apply" class="section section-alt">
+    <div class="container">
+        <div style="text-align:center"><div class="section-badge" style="background:var(--blue-l);color:var(--blue);border:1px solid #bfdbfe">📝 Join</div>
+        <h2 class="section-title reveal" style="text-align:center">Apply for <span style="color:var(--blue)">Training</span></h2>
+        <p class="section-sub cen reveal">Fill your details. Our coordinator contacts you within 48 hours.</p></div>
+        <div class="form-box reveal">
+            <form id="regForm" novalidate>
+                <div class="form-row"><div class="form-group" id="fg-name"><label class="form-label">Full Name *</label><input type="text" class="form-input" id="inp-name" placeholder="Enter your full name"><span class="form-error">Required</span></div><div class="form-group" id="fg-age"><label class="form-label">Age *</label><input type="number" class="form-input" id="inp-age" placeholder="16–35" min="16" max="35"><span class="form-error">16–35 only</span></div></div>
+                <div class="form-row"><div class="form-group" id="fg-gender"><label class="form-label">Gender *</label><select class="form-select" id="inp-gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select><span class="form-error">Required</span></div><div class="form-group" id="fg-community"><label class="form-label">Community *</label><select class="form-select" id="inp-community"><option value="">Select</option><option>Santhal</option><option>Munda</option><option>Ho</option><option>Oraon</option><option>Kharia</option><option>Gond</option><option>Birhor</option><option>Other</option></select><span class="form-error">Required</span></div></div>
+                <div class="form-row"><div class="form-group" id="fg-district"><label class="form-label">District *</label><select class="form-select" id="inp-district"><option value="">Select</option><option>Dumka</option><option>Giridih</option><option>Khunti</option><option>Gumla</option><option>W.Singhbhum</option><option>Dhanbad</option><option>Ranchi</option><option>Bokaro</option><option>Other</option></select><span class="form-error">Required</span></div><div class="form-group" id="fg-phone"><label class="form-label">Phone *</label><input type="tel" class="form-input" id="inp-phone" placeholder="10-digit number"><span class="form-error">Invalid</span></div></div>
+                <div class="form-row"><div class="form-group full" id="fg-course"><label class="form-label">Course *</label><select class="form-select" id="inp-course"><option value="">Select course</option><optgroup label="⚡ Electrical"><option>Solar Panel Installation</option><option>House Wiring & Electrician</option><option>EV Battery & Charger Tech</option></optgroup><optgroup label="⚙️ Mechanical"><option>Two-Wheeler Mechanic</option><option>Welding & Fabrication</option><option>Agri-Equipment Repair</option></optgroup><optgroup label="🏗️ Civil"><option>Plumbing & Sanitation</option><option>Masonry & Construction</option><option>Rainwater Harvesting</option></optgroup></select><span class="form-error">Required</span></div></div>
+                <button type="submit" class="btn btn-p btn-full" style="margin-top:8px">Submit Application 🚀</button>
+            </form>
+            <div class="form-success" id="formSuccess"><div class="chk">✓</div><h3>Application Submitted!</h3><p>We'll contact you within 48 hours.</p><button class="btn btn-o" style="margin-top:16px" onclick="resetForm()">Submit Another →</button></div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-brand"><div class="nav-logo" style="margin-bottom:4px"><div class="nav-logo-i">🎓</div><span style="color:#fff">Kaushal Jharkhand</span></div><p>Vocational training portal for tribal youth in Jharkhand.</p></div>
+        <div><h5>Courses</h5><ul><li><a href="#courses">⚡ Electrical</a></li><li><a href="#courses">⚙️ Mechanical</a></li><li><a href="#courses">🏗️ Civil</a></li></ul></div>
+        <div><h5>Government</h5><ul><li><a href="#schemes">Schemes</a></li><li><a href="#benefits">Benefits</a></li><li><a href="#internships">Internships</a></li></ul></div>
+        <div><h5>Links</h5><ul><li><a href="https://www.pmkvyofficial.org" target="_blank">PMKVY</a></li><li><a href="https://ddugky.gov.in" target="_blank">DDU-GKY</a></li><li><a href="#apply">Apply Now</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Kaushal Jharkhand</span><span>Tribal Youth Skill Development</span></div>
+</footer>
+
+</div><!-- /publicSite -->
+
+<!-- ═══════ TRAINEE DASHBOARD ═══════ -->
+<div class="dashboard" id="traineeDash">
+    <div class="dash-container">
+        <div class="dash-header"><h1>🎓 Trainee Dashboard</h1><button class="dash-signout" onclick="signOut()">Sign Out →</button></div>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-avatar" id="traineeAvatar">👤<input type="file" id="avatarUpload" accept="image/*" style="display:none" onchange="uploadAvatar(event)"><div class="avatar-upload" onclick="document.getElementById('avatarUpload').click()">📷 Upload</div></div>
+            <div class="profile-info">
+                <h2 id="t-profile-name">Trainee Name</h2>
+                <span class="role-tag">🎓 Trainee</span>
+                <div class="profile-details">
+                    <span id="t-profile-community">🏘️ Community</span>
+                    <span id="t-profile-district">📍 District</span>
+                    <span id="t-profile-phone">📱 Phone</span>
+                    <span id="t-profile-date">📅 Enrolled: --</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="dash-stats">
+            <div class="dash-stat"><div class="ds-val" style="color:var(--blue)" id="t-stat-enrolled">2</div><div class="ds-lbl">Courses Enrolled</div></div>
+            <div class="dash-stat"><div class="ds-val" style="color:var(--green)" id="t-stat-completed">1</div><div class="ds-lbl">Completed</div></div>
+            <div class="dash-stat"><div class="ds-val" style="color:var(--orange)" id="t-stat-progress">1</div><div class="ds-lbl">In Progress</div></div>
+            <div class="dash-stat"><div class="ds-val" style="color:var(--purple)" id="t-stat-videos">5</div><div class="ds-lbl">Videos Watched</div></div>
+        </div>
+
+        <!-- My Courses -->
+        <div class="section-label">📚 My Courses</div>
+        <div id="t-my-courses">
+            <div class="my-course"><div class="my-course-icon" style="background:var(--green-l)">⚡</div><div class="my-course-info"><h4>Solar Panel Installation</h4><div class="mc-scheme">Under PMKVY • Dumka Centre</div><div class="my-course-progress"><div class="fill" style="width:100%;background:var(--green)"></div></div></div><div class="my-course-pct" style="color:var(--green)">100%</div><span class="my-course-status" style="background:var(--green-l);color:var(--green)">✓ Done</span></div>
+            <div class="my-course"><div class="my-course-icon" style="background:var(--blue-l)">⚙️</div><div class="my-course-info"><h4>Welding & Fabrication</h4><div class="mc-scheme">Under PMKVY • Khunti Centre</div><div class="my-course-progress"><div class="fill" style="width:45%;background:var(--blue)"></div></div></div><div class="my-course-pct" style="color:var(--blue)">45%</div><span class="my-course-status" style="background:var(--orange-l);color:var(--orange)">In Progress</span></div>
+        </div>
+
+        <!-- Badges -->
+        <div class="section-label" style="margin-top:24px">🏅 Badges & Skills</div>
+        <div class="badges-grid">
+            <span class="badge-item badge-earned">⚡ Solar Basics ✓</span>
+            <span class="badge-item badge-earned">🛡️ Safety Certified ✓</span>
+            <span class="badge-item badge-earned">🔧 Tool Handling ✓</span>
+            <span class="badge-item badge-locked">🏭 Welding Level 1 🔒</span>
+            <span class="badge-item badge-locked">🏗️ Construction 🔒</span>
+            <span class="badge-item badge-locked">💼 Job Ready 🔒</span>
+        </div>
+
+        <!-- Certificate -->
+        <div class="section-label">📜 My Certificate</div>
+        <div class="cert-container" id="certArea">
+            <div class="cert-logo">🎓</div>
+            <div class="cert-title">KAUSHAL JHARKHAND</div>
+            <div class="cert-subtitle">Certificate of Vocational Training Completion</div>
+            <p style="font-size:.82rem;color:var(--text-m);margin-bottom:14px">This is to certify that</p>
+            <div class="cert-name" id="cert-name">Trainee Name</div>
+            <p style="font-size:.82rem;color:var(--text-m);margin-bottom:6px">has successfully completed the training programme</p>
+            <div class="cert-course" id="cert-course">Solar Panel Installation</div>
+            <div class="cert-badge">✅ NSQF Level 4 Certified</div>
+            <div class="cert-details">
+                <div>Duration: 3 Months • Centre: Dumka</div>
+                <div>Scheme: PMKVY — Pradhan Mantri Kaushal Vikas Yojana</div>
+                <div>Date: <span id="cert-date">September 2026</span></div>
+            </div>
+            <div class="cert-footer">
+                <div><div class="sig">Kaushal Jharkhand</div><div class="sig-role">Training Authority</div></div>
+                <div><div class="sig">NSDC / PMKVY</div><div class="sig-role">Certifying Body</div></div>
+                <div><div class="sig" id="cert-id">KJ-2026-0001</div><div class="sig-role">Certificate ID</div></div>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:14px"><button class="btn btn-p" onclick="downloadCert()">📥 Download Certificate (PDF)</button></div>
+
+        <!-- Upcoming Schedule -->
+        <div class="section-label" style="margin-top:24px">📅 Upcoming Sessions</div>
+        <table class="sched-table" style="margin-bottom:24px"><thead><tr><th>Course</th><th>Date</th><th>Time</th><th>Centre</th></tr></thead><tbody>
+            <tr><td><strong>Welding — Module 3</strong></td><td>22 Sep 2026</td><td>9:00 AM – 1:00 PM</td><td>📍 Khunti</td></tr>
+            <tr><td><strong>Welding — Module 4</strong></td><td>29 Sep 2026</td><td>9:00 AM – 1:00 PM</td><td>📍 Khunti</td></tr>
+        </tbody></table>
+
+        <!-- Govt Portals -->
+        <div class="section-label">🔗 Government Portals</div>
+        <div class="portal-grid">
+            <a class="portal-card" href="https://www.pmkvyofficial.org" target="_blank"><span class="pi">🎯</span>PMKVY Portal</a>
+            <a class="portal-card" href="https://ddugky.gov.in" target="_blank"><span class="pi">🌾</span>DDU-GKY Portal</a>
+            <a class="portal-card" href="https://www.apprenticeshipindia.gov.in" target="_blank"><span class="pi">🏭</span>NAPS Portal</a>
+            <a class="portal-card" href="https://www.mudra.org.in" target="_blank"><span class="pi">💰</span>MUDRA Yojana</a>
+            <a class="portal-card" href="https://scholarships.gov.in" target="_blank"><span class="pi">📋</span>Scholarships</a>
+            <a class="portal-card" href="https://www.nsdcindia.org" target="_blank"><span class="pi">🎓</span>NSDC Portal</a>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════ MENTOR DASHBOARD ═══════ -->
+<div class="dashboard" id="mentorDash">
+    <div class="dash-container">
+        <div class="dash-header"><h1>👨‍🏫 Mentor Dashboard</h1><button class="dash-signout" onclick="signOut()">Sign Out →</button></div>
+
+        <!-- Mentor Stats -->
+        <div class="mentor-stats">
+            <div class="dash-stat"><div class="ds-val" style="color:var(--blue)">47</div><div class="ds-lbl">Total Trainees</div></div>
+            <div class="dash-stat"><div class="ds-val" style="color:var(--green)">5</div><div class="ds-lbl">Active Batches</div></div>
+            <div class="dash-stat"><div class="ds-val" style="color:var(--orange)">78%</div><div class="ds-lbl">Avg Completion</div></div>
+            <div class="dash-stat"><div class="ds-val" style="color:var(--purple)">23</div><div class="ds-lbl">Certificates Issued</div></div>
+            <div class="dash-stat"><div class="ds-val" style="color:var(--teal)">9</div><div class="ds-lbl">Courses Running</div></div>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="section-label">👥 All Enrolled Trainees</div>
+        <div class="search-box">
+            <input type="text" placeholder="🔍 Search by trainee name..." id="mentorSearch">
+            <select id="mentorFilterCourse"><option value="all">All Courses</option><option value="Solar Panel Installation">⚡ Solar Panel</option><option value="House Wiring & Electrician">⚡ House Wiring</option><option value="Welding & Fabrication">⚙️ Welding</option><option value="Two-Wheeler Mechanic">⚙️ Two-Wheeler</option><option value="Plumbing & Sanitation">🏗️ Plumbing</option><option value="Masonry & Construction">🏗️ Masonry</option></select>
+            <select id="mentorFilterStatus"><option value="all">All Status</option><option value="Active">Active</option><option value="Completed">Completed</option></select>
+        </div>
+
+        <!-- Trainees Table -->
+        <table class="trainee-table" id="traineeTable">
+            <thead><tr><th>Trainee</th><th>Age</th><th>Community</th><th>District</th><th>Course</th><th>Enrolled</th><th>Videos</th><th>Progress</th><th>Status</th></tr></thead>
+            <tbody id="traineeTableBody"></tbody>
+        </table>
+
+        <!-- Courses Overview -->
+        <div class="section-label" style="margin-top:28px">📚 Courses — Enrollment Overview</div>
+        <div class="grid-3" id="mentorCourseCards"></div>
+
+        <!-- Batch Schedule -->
+        <div class="section-label" style="margin-top:28px">📅 Batch Schedule</div>
+        <table class="sched-table"><thead><tr><th>Course</th><th>Batch</th><th>Start</th><th>Centre</th><th>Trainees</th><th>Attendance</th></tr></thead><tbody>
+            <tr><td><strong>Solar Panel</strong></td><td>Batch 3</td><td>15 Oct 2026</td><td>📍 Dumka</td><td>12</td><td>92%</td></tr>
+            <tr><td><strong>House Wiring</strong></td><td>Batch 2</td><td>20 Oct 2026</td><td>📍 Giridih</td><td>10</td><td>88%</td></tr>
+            <tr><td><strong>Welding</strong></td><td>Batch 1</td><td>1 Nov 2026</td><td>📍 Khunti</td><td>8</td><td>95%</td></tr>
+            <tr><td><strong>Plumbing</strong></td><td>Batch 2</td><td>5 Nov 2026</td><td>📍 Gumla</td><td>9</td><td>90%</td></tr>
+            <tr><td><strong>Two-Wheeler</strong></td><td>Batch 1</td><td>10 Nov 2026</td><td>📍 Giridih</td><td>8</td><td>85%</td></tr>
+        </tbody></table>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
