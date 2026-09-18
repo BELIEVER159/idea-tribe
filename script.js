@@ -150,19 +150,24 @@ function loginMentor() {
 
 // ── SHOW TRAINEE DASHBOARD ──
 function showTraineeDash(user) {
-    document.getElementById('publicSite').style.display = 'none';
+    // Keep public site visible — dashboard shows above it
+    document.getElementById('publicSite').style.display = '';
     document.getElementById('mentorDash').classList.remove('show');
     document.getElementById('traineeDash').classList.add('show');
 
-    // Update nav
+    // Update nav — keep nav links visible
     document.getElementById('navSignin').style.display = 'none';
     document.getElementById('navProfile').classList.add('show');
     document.getElementById('navProfName').textContent = user.name;
     document.getElementById('navProfRole').textContent = '🎓 Trainee';
     document.getElementById('navAvatarSm').textContent = user.name.charAt(0).toUpperCase();
 
-    // Hide public nav links
-    document.getElementById('navLinks').style.display = 'none';
+    // Keep nav links visible so trainee can browse courses, videos, schemes etc.
+    document.getElementById('navLinks').style.display = '';
+
+    // Hide hero section since dashboard replaces it
+    const hero = document.getElementById('hero');
+    if (hero) hero.style.display = 'none';
 
     // Update profile
     document.getElementById('t-profile-name').textContent = user.name;
@@ -179,17 +184,22 @@ function showTraineeDash(user) {
 
 // ── SHOW MENTOR DASHBOARD ──
 function showMentorDash() {
-    document.getElementById('publicSite').style.display = 'none';
+    // Keep public site visible — dashboard shows above it
+    document.getElementById('publicSite').style.display = '';
     document.getElementById('traineeDash').classList.remove('show');
     document.getElementById('mentorDash').classList.add('show');
 
-    // Update nav
+    // Update nav — keep nav links visible
     document.getElementById('navSignin').style.display = 'none';
     document.getElementById('navProfile').classList.add('show');
     document.getElementById('navProfName').textContent = 'Mentor';
     document.getElementById('navProfRole').textContent = '👨‍🏫 Mentor';
     document.getElementById('navAvatarSm').textContent = 'M';
-    document.getElementById('navLinks').style.display = 'none';
+    document.getElementById('navLinks').style.display = '';
+
+    // Hide hero section since dashboard replaces it
+    const hero = document.getElementById('hero');
+    if (hero) hero.style.display = 'none';
 
     // Render trainees table
     renderTraineesTable(TRAINEES);
@@ -207,14 +217,66 @@ function renderTraineesTable(data) {
         const status = t.progress >= 100 ? 'Completed' : 'Active';
         const statusClass = status === 'Completed' ? 'background:var(--green-l);color:var(--green)' : 'background:var(--blue-l);color:var(--blue)';
         const fillColor = t.progress >= 100 ? 'var(--green)' : t.progress >= 50 ? 'var(--blue)' : 'var(--orange)';
-        return `<tr data-name="${t.name.toLowerCase()}" data-course="${t.courses.join(',')}" data-status="${status}">
+        const completedList = t.completed.length > 0 ? t.completed.map(c => '✅ ' + c).join(', ') : 'None yet';
+        const inProgressList = t.courses.filter(c => !t.completed.includes(c));
+        const inProgressStr = inProgressList.length > 0 ? inProgressList.map(c => '🔄 ' + c).join(', ') : 'None';
+        return `<tr class="trainee-row" data-name="${t.name.toLowerCase()}" data-course="${t.courses.join(',')}" data-status="${status}" data-tid="${t.id}" onclick="toggleTraineeDetail(this, ${t.id})" style="cursor:pointer">
             <td><div class="t-name"><div class="t-avatar" style="background:${color}">${t.name.charAt(0)}</div><div><strong>${t.name}</strong><div style="font-size:.65rem;color:var(--text-m)">${t.gender}, ${t.phone}</div></div></div></td>
             <td>${t.age}</td><td>${t.community}</td><td>📍 ${t.district}</td>
             <td><div style="font-size:.75rem;line-height:1.6">${t.courses.map(c=>'• '+c).join('<br>')}</div></td>
             <td>${t.enrolled}</td><td style="text-align:center">${t.videos}</td>
             <td><div class="progress-bar-sm"><div class="fill" style="width:${t.progress}%;background:${fillColor}"></div></div>${t.progress}%</td>
-            <td><span class="status" style="${statusClass}">${status}</span></td></tr>`;
+            <td><span class="status" style="${statusClass}">${status}</span></td></tr>
+        <tr class="trainee-detail" id="detail-${t.id}" style="display:none">
+            <td colspan="9">
+                <div class="trainee-detail-panel">
+                    <div class="tdp-grid">
+                        <div class="tdp-section">
+                            <h4>👤 Profile</h4>
+                            <div class="tdp-item"><span class="tdp-label">Full Name:</span> ${t.name}</div>
+                            <div class="tdp-item"><span class="tdp-label">Age:</span> ${t.age} years</div>
+                            <div class="tdp-item"><span class="tdp-label">Gender:</span> ${t.gender}</div>
+                            <div class="tdp-item"><span class="tdp-label">Community:</span> ${t.community}</div>
+                            <div class="tdp-item"><span class="tdp-label">District:</span> ${t.district}</div>
+                            <div class="tdp-item"><span class="tdp-label">Phone:</span> ${t.phone}</div>
+                            <div class="tdp-item"><span class="tdp-label">Enrolled:</span> ${t.enrolled}</div>
+                        </div>
+                        <div class="tdp-section">
+                            <h4>📚 Courses</h4>
+                            <div class="tdp-item"><span class="tdp-label">Enrolled In:</span> ${t.courses.map(c => '• ' + c).join('<br>')}</div>
+                            <div class="tdp-item"><span class="tdp-label">Completed:</span> ${completedList}</div>
+                            <div class="tdp-item"><span class="tdp-label">In Progress:</span> ${inProgressStr}</div>
+                        </div>
+                        <div class="tdp-section">
+                            <h4>📊 Progress</h4>
+                            <div class="tdp-item"><span class="tdp-label">Overall:</span> ${t.progress}%</div>
+                            <div class="my-course-progress" style="margin:8px 0"><div class="fill" style="width:${t.progress}%;background:${fillColor}"></div></div>
+                            <div class="tdp-item"><span class="tdp-label">Videos Watched:</span> ${t.videos}</div>
+                            <div class="tdp-item"><span class="tdp-label">Status:</span> <span class="status" style="${statusClass}">${status}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>`;
     }).join('');
+}
+
+// ── TOGGLE TRAINEE DETAIL PANEL ──
+function toggleTraineeDetail(row, id) {
+    const detail = document.getElementById('detail-' + id);
+    if (!detail) return;
+    const isVisible = detail.style.display !== 'none';
+    // Close all other open details
+    document.querySelectorAll('.trainee-detail').forEach(d => { d.style.display = 'none'; });
+    document.querySelectorAll('.trainee-row').forEach(r => { r.classList.remove('row-active'); });
+    if (!isVisible) {
+        detail.style.display = '';
+        row.classList.add('row-active');
+        // Flash animation
+        detail.querySelector('.trainee-detail-panel').classList.remove('flash');
+        void detail.querySelector('.trainee-detail-panel').offsetWidth;
+        detail.querySelector('.trainee-detail-panel').classList.add('flash');
+    }
 }
 
 // ── FILTER TRAINEES ──
@@ -270,6 +332,9 @@ function signOut() {
     document.getElementById('navSignin').style.display = '';
     document.getElementById('navProfile').classList.remove('show');
     document.getElementById('navLinks').style.display = '';
+    // Restore hero section
+    const hero = document.getElementById('hero');
+    if (hero) hero.style.display = '';
     window.scrollTo(0,0);
 }
 

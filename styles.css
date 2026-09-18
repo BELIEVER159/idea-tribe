@@ -312,6 +312,20 @@ input,select,textarea{font-family:inherit;outline:none}
 }
 @media(max-width:480px){.hero-title{font-size:1.8rem}.hero-stats{flex-direction:column}.dash-stats{grid-template-columns:1fr}}
 
+/* ═══ TRAINEE DETAIL EXPAND PANEL ═══ */
+.trainee-row:hover{background:var(--blue-l)!important;transition:background .2s}
+.trainee-row.row-active{background:var(--blue-l)!important;border-left:3px solid var(--blue)}
+.trainee-detail td{padding:0!important;border:none!important}
+.trainee-detail-panel{background:linear-gradient(135deg,#f8faff,#f0f4ff);padding:20px 24px;border-left:4px solid var(--blue);border-radius:0 0 var(--radius-s) var(--radius-s);margin:0}
+.trainee-detail-panel.flash{animation:flashIn .4s ease-out}
+@keyframes flashIn{0%{opacity:0;transform:translateY(-10px);background:#dbeafe}50%{background:#eff6ff}100%{opacity:1;transform:translateY(0)}}
+.tdp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tdp-section{background:#fff;padding:16px;border-radius:var(--radius-s);box-shadow:var(--shadow)}
+.tdp-section h4{font-size:.85rem;font-weight:700;margin-bottom:10px;color:var(--blue);border-bottom:2px solid var(--blue-l);padding-bottom:6px}
+.tdp-item{font-size:.78rem;color:var(--text-s);margin-bottom:6px;line-height:1.5}
+.tdp-label{font-weight:600;color:var(--text)}
+@media(max-width:768px){.tdp-grid{grid-template-columns:1fr}}
+
 @media print{
     .navbar,.footer,.dash-header,.dash-signout,.nav-profile{display:none!important}
     .dashboard{padding:0!important;background:#fff!important}
